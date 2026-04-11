@@ -82,6 +82,10 @@ function useControls() {
             x: 0,
             z: 0
         },
+        look: {
+            x: 0,
+            y: 0
+        },
         interact: false
     });
     // ── Keyboard listeners ────────────────────────────────────
@@ -119,30 +123,42 @@ function useControls() {
             if (k["KeyS"] || k["ArrowDown"]) mz += 1;
             if (k["KeyA"] || k["ArrowLeft"]) mx -= 1;
             if (k["KeyD"] || k["ArrowRight"]) mx += 1;
-            // --- Keyboard interact (E key — pulse for one frame) ---
-            let interact = !!(k["KeyE"] && !k["__e_prev"]);
-            k["__e_prev"] = k["KeyE"];
+            // --- Keyboard interact (E key) ---
+            let interact = !!k["KeyE"];
             // --- Gamepad ---
             const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+            let lx = 0;
+            let ly = 0;
             for (const gp of gamepads){
                 if (!gp) continue;
                 const DEADZONE = 0.15;
+                // Left Stick (Movement)
                 const axisX = gp.axes[0] ?? 0;
                 const axisZ = gp.axes[1] ?? 0;
                 if (Math.abs(axisX) > DEADZONE) mx += axisX;
                 if (Math.abs(axisZ) > DEADZONE) mz += axisZ;
-                // Button 0 = "A" on Xbox / Cross on PlayStation
+                // Right Stick (Look)
+                const lookX = gp.axes[2] ?? 0;
+                const lookY = gp.axes[3] ?? 0;
+                if (Math.abs(lookX) > DEADZONE) lx += lookX;
+                if (Math.abs(lookY) > DEADZONE) ly += lookY;
+                // Face buttons (0:A, 1:B, 2:X, 3:Y)
+                // Check for both .pressed and .value for broader compatibility
                 const btnA = gp.buttons[0];
-                const btnPressed = btnA?.pressed ?? false;
-                const btnPrevKey = `__gp_${gp.index}_b0_prev`;
-                if (btnPressed && !k[btnPrevKey]) interact = true;
-                k[btnPrevKey] = btnPressed;
+                const btnB = gp.buttons[1];
+                const btnX = gp.buttons[2];
+                const btnY = gp.buttons[3];
+                if (btnA?.pressed || btnB?.pressed || btnX?.pressed || btnY?.pressed) {
+                    interact = true;
+                }
             }
             // Clamp to [-1, 1]
             mx = Math.max(-1, Math.min(1, mx));
             mz = Math.max(-1, Math.min(1, mz));
             inputRef.current.movement.x = mx;
             inputRef.current.movement.z = mz;
+            inputRef.current.look.x = lx;
+            inputRef.current.look.y = ly;
             inputRef.current.interact = interact;
         }
     }["useControls.useFrame"]);
@@ -196,12 +212,23 @@ function CharacterController({ dialogueOpen }) {
     const localInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useControls$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useControls"])(); // polls keyboard + gamepad each frame
     const { playerPosRef, inputRef } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$PlayerContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePlayer"])();
     const { camera } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$fiber$2f$dist$2f$events$2d$5a94e5eb$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__C__as__useThree$3e$__["useThree"])();
+    // ── Camera Rotation State ────────────────────────────────
+    // theta = horizontal (yaw), phi = vertical (pitch)
+    const cameraRot = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])({
+        theta: 0,
+        phi: 0.16
+    });
+    const CAMERA_DISTANCE = 10.5;
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$fiber$2f$dist$2f$events$2d$5a94e5eb$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__D__as__useFrame$3e$__["useFrame"])({
-        "CharacterController.useFrame": ()=>{
+        "CharacterController.useFrame": (state, delta)=>{
             const rb = rigidBodyRef.current;
             if (!rb) return;
             const input = localInputRef.current;
-            const { movement, interact } = input;
+            const { movement, look, interact } = input;
+            // ── Update Camera Rotation Angles ──
+            const SENSITIVITY = 1.8;
+            cameraRot.current.theta -= look.x * SENSITIVITY * delta;
+            cameraRot.current.phi = Math.max(-0.2, Math.min(1.2, cameraRot.current.phi + look.y * SENSITIVITY * delta));
             // ── Publish to shared context ──
             const pos = rb.translation();
             playerPosRef.current.x = pos.x;
@@ -242,9 +269,14 @@ function CharacterController({ dialogueOpen }) {
                 const targetQ = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Quaternion"]().setFromEuler(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Euler"](0, Math.atan2(_dir.x, _dir.z), 0));
                 avatarRef.current.quaternion.slerp(targetQ, ROT_LERP);
             }
-            /* ── 3. Fixed behind-player camera ───────────────────── */ _camP.set(pos.x, pos.y, pos.z).add(CAMERA_OFFSET);
+            /* ── 3. Dynamic Rotating Camera ───────────────────────── */ const { theta, phi } = cameraRot.current;
+            // Calculate relative offset using spherical coordinates
+            const offX = CAMERA_DISTANCE * Math.sin(theta) * Math.cos(phi);
+            const offY = CAMERA_DISTANCE * Math.sin(phi);
+            const offZ = CAMERA_DISTANCE * Math.cos(theta) * Math.cos(phi);
+            _camP.set(pos.x + offX, pos.y + offY + 1.2, pos.z + offZ);
             camera.position.lerp(_camP, CAMERA_LERP);
-            _camT.set(pos.x, pos.y + 1.2, pos.z);
+            _camT.set(pos.x, pos.y + 1.6, pos.z);
             camera.lookAt(_camT);
         }
     }["CharacterController.useFrame"]);
@@ -272,7 +304,7 @@ function CharacterController({ dialogueOpen }) {
                 ]
             }, void 0, false, {
                 fileName: "[project]/src/components/CharacterController.jsx",
-                lineNumber: 108,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("group", {
@@ -295,7 +327,7 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 119,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -304,13 +336,13 @@ function CharacterController({ dialogueOpen }) {
                                 metalness: 0.05
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 120,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 118,
+                        lineNumber: 139,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -330,7 +362,7 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 124,
+                                lineNumber: 145,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -338,13 +370,13 @@ function CharacterController({ dialogueOpen }) {
                                 roughness: 0.8
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 125,
+                                lineNumber: 146,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 123,
+                        lineNumber: 144,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -364,7 +396,7 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 129,
+                                lineNumber: 150,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -372,13 +404,13 @@ function CharacterController({ dialogueOpen }) {
                                 roughness: 0.7
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 130,
+                                lineNumber: 151,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 128,
+                        lineNumber: 149,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -397,7 +429,7 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 134,
+                                lineNumber: 155,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -405,13 +437,13 @@ function CharacterController({ dialogueOpen }) {
                                 roughness: 0.65
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 135,
+                                lineNumber: 156,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 133,
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -429,20 +461,20 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 139,
+                                lineNumber: 160,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
                                 color: "#1a1209"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 140,
+                                lineNumber: 161,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 138,
+                        lineNumber: 159,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -460,20 +492,20 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 143,
+                                lineNumber: 164,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
                                 color: "#1a1209"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 144,
+                                lineNumber: 165,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 142,
+                        lineNumber: 163,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -492,7 +524,7 @@ function CharacterController({ dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 148,
+                                lineNumber: 169,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -500,29 +532,29 @@ function CharacterController({ dialogueOpen }) {
                                 roughness: 0.6
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
-                                lineNumber: 149,
+                                lineNumber: 170,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CharacterController.jsx",
-                        lineNumber: 147,
+                        lineNumber: 168,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/CharacterController.jsx",
-                lineNumber: 116,
+                lineNumber: 137,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/CharacterController.jsx",
-        lineNumber: 99,
+        lineNumber: 120,
         columnNumber: 5
     }, this);
 }
-_s(CharacterController, "gTA/rXkmwTpE3sIhYgYGknxoZRo=", false, function() {
+_s(CharacterController, "uuP9y1nlIpbrx1zFYdhnQgKQZR4=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useControls$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useControls"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$PlayerContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePlayer"],
@@ -568,10 +600,15 @@ function InteractableProp({ position = [
     const prevInteract = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
     const propPos = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"](...position));
     const playerVec = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Vector3"]());
+    // Prevent immediate re-triggering when closing dialogue with the interact button
+    const canInteract = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$fiber$2f$dist$2f$events$2d$5a94e5eb$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__D__as__useFrame$3e$__["useFrame"])({
         "InteractableProp.useFrame": ()=>{
             const pp = playerPosRef?.current;
             if (!pp) return;
+            if (dialogueOpen) {
+                canInteract.current = false; // Lock interaction while dialogue is up
+            }
             playerVec.current.set(pp.x, pp.y, pp.z);
             const dist = propPos.current.distanceTo(playerVec.current);
             const near = dist < interactRadius;
@@ -579,9 +616,13 @@ function InteractableProp({ position = [
             setPlayerNear({
                 "InteractableProp.useFrame": (prev)=>prev !== near ? near : prev
             }["InteractableProp.useFrame"]);
-            // Rising-edge detection for interact button
             const interact = inputRef?.current?.interact ?? false;
-            if (near && !dialogueOpen && interact && !prevInteract.current) {
+            // Unlock interaction only AFTER the button is released while dialogue is closed
+            if (!dialogueOpen && !interact) {
+                canInteract.current = true;
+            }
+            // Trigger only if near, dialogue is closed, button pushed, AND lockout is clear
+            if (near && !dialogueOpen && interact && !prevInteract.current && canInteract.current) {
                 onInteract?.(scenarioId);
             }
             prevInteract.current = interact;
@@ -624,7 +665,7 @@ function InteractableProp({ position = [
                             children: "[E]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/InteractableProp.jsx",
-                            lineNumber: 84,
+                            lineNumber: 97,
                             columnNumber: 13
                         }, this),
                         " / ",
@@ -635,7 +676,7 @@ function InteractableProp({ position = [
                             children: "[A]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/InteractableProp.jsx",
-                            lineNumber: 86,
+                            lineNumber: 99,
                             columnNumber: 13
                         }, this),
                         "  ",
@@ -643,23 +684,23 @@ function InteractableProp({ position = [
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/InteractableProp.jsx",
-                    lineNumber: 68,
+                    lineNumber: 81,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/InteractableProp.jsx",
-                lineNumber: 63,
+                lineNumber: 76,
                 columnNumber: 9
             }, this),
             children
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/InteractableProp.jsx",
-        lineNumber: 60,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }
-_s(InteractableProp, "zyn/4aBx5YHkRdj+b3eELaEvR04=", false, function() {
+_s(InteractableProp, "X3HWnTRSxy9b3e4qUMebC1fu9uE=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$PlayerContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePlayer"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$fiber$2f$dist$2f$events$2d$5a94e5eb$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__D__as__useFrame$3e$__["useFrame"]
@@ -1023,9 +1064,9 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    -18,
+                    -14,
                     WH2,
-                    -30
+                    -32
                 ],
                 args: [
                     18,
@@ -1040,7 +1081,7 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    -3,
+                    4,
                     WH2,
                     -36
                 ],
@@ -1057,7 +1098,7 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    11,
+                    17,
                     WH2,
                     -35
                 ],
@@ -1066,7 +1107,7 @@ function Environment({ onInteract, dialogueOpen }) {
                     WH,
                     0.5
                 ],
-                rot: -Math.PI * 0.04
+                rot: -Math.PI * 0.06
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 109,
@@ -1074,12 +1115,12 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    24,
+                    28,
                     WH2,
-                    -28
+                    -32
                 ],
                 args: [
-                    16,
+                    10,
                     WH,
                     0.5
                 ],
@@ -1108,16 +1149,16 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    31,
+                    32,
                     WH2,
-                    -7
+                    -11
                 ],
                 args: [
                     0.5,
                     WH,
-                    52
+                    40
                 ],
-                rot: -Math.PI * 0.06
+                rot: -Math.PI * 0.0
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 119,
@@ -1125,16 +1166,16 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    30.5,
+                    24,
                     WH2,
-                    -31
+                    -0
                 ],
                 args: [
                     0.5,
                     WH,
-                    4
+                    16
                 ],
-                rot: 0
+                rot: 1.5
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 121,
@@ -1178,14 +1219,14 @@ function Environment({ onInteract, dialogueOpen }) {
                 pos: [
                     14.5,
                     WH2,
-                    17
+                    13
                 ],
                 args: [
-                    7,
+                    10,
                     WH,
                     0.5
                 ],
-                rot: -Math.PI * 0.06
+                rot: 1.5
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 132,
@@ -1193,16 +1234,16 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    29.5,
+                    35.8,
                     WH2,
-                    11
+                    9
                 ],
                 args: [
                     8,
                     WH,
                     0.5
                 ],
-                rot: -Math.PI * 0.17
+                rot: 0
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 135,
@@ -1210,16 +1251,16 @@ function Environment({ onInteract, dialogueOpen }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
                 pos: [
-                    31.2,
+                    35.8,
                     WH2,
-                    14.5
+                    19
                 ],
                 args: [
                     0.5,
                     WH,
                     7
                 ],
-                rot: 0
+                rot: 1.5
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
                 lineNumber: 137,

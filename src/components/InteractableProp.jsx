@@ -36,10 +36,17 @@ export default function InteractableProp({
   const prevInteract = useRef(false);
   const propPos = useRef(new Vector3(...position));
   const playerVec = useRef(new Vector3());
+  
+  // Prevent immediate re-triggering when closing dialogue with the interact button
+  const canInteract = useRef(true);
 
   useFrame(() => {
     const pp = playerPosRef?.current;
     if (!pp) return;
+
+    if (dialogueOpen) {
+      canInteract.current = false; // Lock interaction while dialogue is up
+    }
 
     playerVec.current.set(pp.x, pp.y, pp.z);
     const dist = propPos.current.distanceTo(playerVec.current);
@@ -48,9 +55,15 @@ export default function InteractableProp({
     // Avoid flooding setState — only update when value changes
     setPlayerNear((prev) => (prev !== near ? near : prev));
 
-    // Rising-edge detection for interact button
     const interact = inputRef?.current?.interact ?? false;
-    if (near && !dialogueOpen && interact && !prevInteract.current) {
+    
+    // Unlock interaction only AFTER the button is released while dialogue is closed
+    if (!dialogueOpen && !interact) {
+      canInteract.current = true;
+    }
+
+    // Trigger only if near, dialogue is closed, button pushed, AND lockout is clear
+    if (near && !dialogueOpen && interact && !prevInteract.current && canInteract.current) {
       onInteract?.(scenarioId);
     }
     prevInteract.current = interact;

@@ -82,13 +82,77 @@ function DialogueOverlay({ scenarioId, onClose }) {
     const scenario = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$scenarios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SCENARIOS"][scenarioId];
     const [selected, setSelected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null); // index of chosen answer
     const [showResult, setShowResult] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [hoveredIdx, setHoveredIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0); // for controller/keyboard navigation
     if (!scenario) return null;
     const isCorrect = selected === scenario.correctIndex;
     const handleChoice = (idx)=>{
         if (selected !== null) return; // already answered
         setSelected(idx);
         setShowResult(true);
+        setHoveredIdx(100); // sentinel for "Continue" button
     };
+    // ── Controller Support ────────────────────────────────────
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        let lastY = 0;
+        let lastDpad = {
+            up: false,
+            down: false
+        };
+        // Initialize lastBtn to current state to prevent "double trigger"
+        const initialGps = navigator.getGamepads();
+        let lastBtn = initialGps[0]?.buttons[0].pressed ?? false;
+        let rafId;
+        let navCooldown = 0;
+        const poll = (time)=>{
+            const gpts = navigator.getGamepads();
+            const gp = gpts[0];
+            if (gp) {
+                const DEADZONE = 0.5;
+                const y = gp.axes[1]; // Left stick vertical
+                const btnA = gp.buttons[0].pressed;
+                // D-pad (12: Up, 13: Down)
+                const dUp = gp.buttons[12]?.pressed;
+                const dDown = gp.buttons[13]?.pressed;
+                // --- Navigation ---
+                let navInput = 0;
+                if (dUp && !lastDpad.up) navInput = -1;
+                if (dDown && !lastDpad.down) navInput = 1;
+                // Sticky-stick logic with cooldown to prevent skipping
+                if (navInput === 0 && Math.abs(y) > DEADZONE && time > navCooldown) {
+                    navInput = y < 0 ? -1 : 1;
+                    navCooldown = time + 250; // 250ms debounce
+                }
+                if (navInput !== 0) {
+                    setHoveredIdx((prev)=>{
+                        if (showResult) return 100;
+                        if (navInput < 0) return Math.max(0, prev - 1);
+                        return Math.min(scenario.choices.length - 1, prev + 1);
+                    });
+                }
+                lastDpad = {
+                    up: !!dUp,
+                    down: !!dDown
+                };
+                // --- Selection (A Button) ---
+                if (btnA && !lastBtn) {
+                    if (!showResult) {
+                        handleChoice(hoveredIdx);
+                    } else if (hoveredIdx === 100) {
+                        onClose();
+                    }
+                }
+                lastBtn = btnA;
+            }
+            rafId = requestAnimationFrame(poll);
+        };
+        rafId = requestAnimationFrame(poll);
+        return ()=>cancelAnimationFrame(rafId);
+    }, [
+        showResult,
+        hoveredIdx,
+        scenario.choices.length,
+        onClose
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "dialogue-overlay",
         onClick: (e)=>e.stopPropagation(),
@@ -103,7 +167,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 34,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -115,7 +179,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 37,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -126,24 +190,25 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 40,
+                    lineNumber: 105,
                     columnNumber: 9
                 }, this),
                 !showResult ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "dialogue-choices",
                     children: scenario.choices.map((choice, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             id: `choice-${scenarioId}-${idx}`,
-                            className: "dialogue-choice-btn",
+                            className: `dialogue-choice-btn ${hoveredIdx === idx ? "focused" : ""}`,
                             onClick: ()=>handleChoice(idx),
+                            onMouseEnter: ()=>setHoveredIdx(idx),
                             children: choice
                         }, idx, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 46,
+                            lineNumber: 111,
                             columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 44,
+                    lineNumber: 109,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     children: [
@@ -166,13 +231,13 @@ function DialogueOverlay({ scenarioId, onClose }) {
                                     ]
                                 }, idx, true, {
                                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                                    lineNumber: 66,
+                                    lineNumber: 132,
                                     columnNumber: 19
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 58,
+                            lineNumber: 124,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -189,34 +254,35 @@ function DialogueOverlay({ scenarioId, onClose }) {
                             children: isCorrect ? scenario.successMessage : "Hmm, that doesn't seem right. Pay attention to the context clues around you."
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 81,
+                            lineNumber: 147,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             id: "dialogue-continue-btn",
-                            className: "dialogue-continue-btn",
+                            className: `dialogue-continue-btn ${hoveredIdx === 100 ? "focused" : ""}`,
                             onClick: onClose,
+                            onMouseEnter: ()=>setHoveredIdx(100),
                             children: isCorrect ? "¡Continuar! →" : "Try again next time →"
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 100,
+                            lineNumber: 166,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 57,
+                    lineNumber: 123,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/DialogueOverlay.jsx",
-            lineNumber: 32,
+            lineNumber: 97,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/DialogueOverlay.jsx",
-        lineNumber: 31,
+        lineNumber: 96,
         columnNumber: 5
     }, this);
 }

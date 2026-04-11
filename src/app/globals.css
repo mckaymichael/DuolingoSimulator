@@ -102,8 +102,8 @@ html, body {
 }
 
 .dialogue-choice-btn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(143,186,106,0.2);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(143, 186, 106, 0.2);
   border-radius: 10px;
   padding: 0.875rem 1.25rem;
   color: var(--color-cream);
@@ -112,12 +112,15 @@ html, body {
   text-align: left;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  outline: none;
 }
 
-.dialogue-choice-btn:hover {
+.dialogue-choice-btn:hover,
+.dialogue-choice-btn.focused {
   background: rgba(143, 186, 106, 0.15);
   border-color: var(--color-accent);
   transform: translateX(4px);
+  box-shadow: 0 0 15px rgba(143, 186, 106, 0.1);
 }
 
 .dialogue-choice-btn.correct {
@@ -144,11 +147,14 @@ html, body {
   cursor: pointer;
   margin-top: 1.25rem;
   transition: background 0.15s, transform 0.1s;
+  outline: none;
 }
 
-.dialogue-continue-btn:hover {
+.dialogue-continue-btn:hover,
+.dialogue-continue-btn.focused {
   background: var(--color-accent);
   transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(143, 186, 106, 0.2);
 }
 
 /* ── HUD ──────────────────────────────────────────────────── */

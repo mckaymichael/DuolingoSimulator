@@ -102,13 +102,13 @@ export default function Environment({ onInteract, dialogueOpen }) {
           4 flat segments approximating the convex arc
          ══════════════════════════════════════════════════════ */}
       {/* Far left */}
-      <Wall pos={[-18, WH2, -30]} args={[18, WH, 0.5]} rot={Math.PI * 0.112} />
+      <Wall pos={[-14, WH2, -32]} args={[18, WH, 0.5]} rot={Math.PI * 0.112} />
       {/* Center-left */}
-      <Wall pos={[-3, WH2, -36]} args={[20, WH, 0.5]} rot={Math.PI * 0.04} />
+      <Wall pos={[4, WH2, -36]} args={[20, WH, 0.5]} rot={Math.PI * 0.04} />
       {/* Center-right */}
-      <Wall pos={[11, WH2, -35]} args={[18, WH, 0.5]} rot={-Math.PI * 0.04} />
+      <Wall pos={[17, WH2, -35]} args={[18, WH, 0.5]} rot={-Math.PI * 0.06} />
       {/* Far right */}
-      <Wall pos={[24, WH2, -28]} args={[16, WH, 0.5]} rot={-Math.PI * 0.13} />
+      <Wall pos={[28, WH2, -32]} args={[10, WH, 0.5]} rot={-Math.PI * 0.13} />
       {/* Cap connector (back-left joins maze back wall) */}
       <Wall pos={[-22.5, WH2, -29.2]} args={[2, WH, 0.5]} rot={0} />
 
@@ -116,9 +116,9 @@ export default function Environment({ onInteract, dialogueOpen }) {
           MAIN HALL — RIGHT OUTER WALL
           Angled to follow fan shape from front to back
          ══════════════════════════════════════════════════════ */}
-      <Wall pos={[31, WH2, -7]} args={[0.5, WH, 52]} rot={-Math.PI * 0.06} />
+      <Wall pos={[32, WH2, -11]} args={[0.5, WH, 40]} rot={-Math.PI * 0.0} />
       {/* Short cap at top-right to close corner with back wall */}
-      <Wall pos={[30.5, WH2, -31]} args={[0.5, WH, 4]} rot={0} />
+      <Wall pos={[24, WH2, -0]} args={[0.5, WH, 16]} rot={1.5} />
 
       {/* ══════════════════════════════════════════════════════
           MAIN HALL — INNER FRONT WALL (concave)
@@ -129,12 +129,12 @@ export default function Environment({ onInteract, dialogueOpen }) {
       {/* Center */}
       <Wall pos={[6, WH2, 17]} args={[16, WH, 0.5]} rot={-Math.PI * 0.02} />
       {/* Right of center — stops before entrance gap */}
-      <Wall pos={[14.5, WH2, 17]} args={[7, WH, 0.5]} rot={-Math.PI * 0.06} />
+      <Wall pos={[14.5, WH2, 13]} args={[10, WH, 0.5]} rot={1.5} />
       {/* ── MAIN ENTRANCE GAP: x ≈ 18–27, z ≈ 14–17 ── */}
       {/* Short wall after entrance (right return) */}
-      <Wall pos={[29.5, WH2, 11]} args={[8, WH, 0.5]} rot={-Math.PI * 0.17} />
+      <Wall pos={[35.8, WH2, 9]} args={[8, WH, 0.5]} rot={0} />
       {/* Connector: right return to right outer wall */}
-      <Wall pos={[31.2, WH2, 14.5]} args={[0.5, WH, 7]} rot={0} />
+      <Wall pos={[35.8, WH2, 19]} args={[0.5, WH, 7]} rot={1.5} />
 
       {/* ══════════════════════════════════════════════════════
           SHARED WALL (x = -22)

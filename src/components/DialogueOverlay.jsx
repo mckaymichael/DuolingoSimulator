@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SCENARIOS } from "@/data/scenarios";
 
 /**
@@ -16,6 +16,7 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
   const scenario = SCENARIOS[scenarioId];
   const [selected, setSelected] = useState(null);   // index of chosen answer
   const [showResult, setShowResult] = useState(false);
+  const [hoveredIdx, setHoveredIdx] = useState(0); // for controller/keyboard navigation
 
   if (!scenario) return null;
 
@@ -25,7 +26,71 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
     if (selected !== null) return; // already answered
     setSelected(idx);
     setShowResult(true);
+    setHoveredIdx(100); // sentinel for "Continue" button
   };
+
+  // ── Controller Support ────────────────────────────────────
+  useEffect(() => {
+    let lastY = 0;
+    let lastDpad = { up: false, down: false };
+    
+    // Initialize lastBtn to current state to prevent "double trigger"
+    const initialGps = navigator.getGamepads();
+    let lastBtn = initialGps[0]?.buttons[0].pressed ?? false;
+    
+    let rafId;
+    let navCooldown = 0;
+
+    const poll = (time) => {
+      const gpts = navigator.getGamepads();
+      const gp = gpts[0];
+
+      if (gp) {
+        const DEADZONE = 0.5;
+        const y = gp.axes[1]; // Left stick vertical
+        const btnA = gp.buttons[0].pressed;
+        
+        // D-pad (12: Up, 13: Down)
+        const dUp = gp.buttons[12]?.pressed;
+        const dDown = gp.buttons[13]?.pressed;
+
+        // --- Navigation ---
+        let navInput = 0;
+        if (dUp && !lastDpad.up) navInput = -1;
+        if (dDown && !lastDpad.down) navInput = 1;
+
+        // Sticky-stick logic with cooldown to prevent skipping
+        if (navInput === 0 && Math.abs(y) > DEADZONE && time > navCooldown) {
+          navInput = y < 0 ? -1 : 1;
+          navCooldown = time + 250; // 250ms debounce
+        }
+
+        if (navInput !== 0) {
+          setHoveredIdx(prev => {
+            if (showResult) return 100;
+            if (navInput < 0) return Math.max(0, prev - 1);
+            return Math.min(scenario.choices.length - 1, prev + 1);
+          });
+        }
+        
+        lastDpad = { up: !!dUp, down: !!dDown };
+
+        // --- Selection (A Button) ---
+        if (btnA && !lastBtn) {
+          if (!showResult) {
+            handleChoice(hoveredIdx);
+          } else if (hoveredIdx === 100) {
+            onClose();
+          }
+        }
+        lastBtn = btnA;
+      }
+      rafId = requestAnimationFrame(poll);
+    };
+
+    rafId = requestAnimationFrame(poll);
+    return () => cancelAnimationFrame(rafId);
+  }, [showResult, hoveredIdx, scenario.choices.length, onClose]);
 
   return (
     <div className="dialogue-overlay" onClick={(e) => e.stopPropagation()}>
@@ -46,8 +111,9 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
               <button
                 key={idx}
                 id={`choice-${scenarioId}-${idx}`}
-                className="dialogue-choice-btn"
+                className={`dialogue-choice-btn ${hoveredIdx === idx ? "focused" : ""}`}
                 onClick={() => handleChoice(idx)}
+                onMouseEnter={() => setHoveredIdx(idx)}
               >
                 {choice}
               </button>
@@ -99,8 +165,9 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
 
             <button
               id="dialogue-continue-btn"
-              className="dialogue-continue-btn"
+              className={`dialogue-continue-btn ${hoveredIdx === 100 ? "focused" : ""}`}
               onClick={onClose}
+              onMouseEnter={() => setHoveredIdx(100)}
             >
               {isCorrect ? "¡Continuar! →" : "Try again next time →"}
             </button>

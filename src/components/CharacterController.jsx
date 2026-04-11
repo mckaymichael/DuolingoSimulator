@@ -38,12 +38,25 @@ export default function CharacterController({ dialogueOpen }) {
   const { playerPosRef, inputRef } = usePlayer();
   const { camera } = useThree();
 
-  useFrame(() => {
+  // ── Camera Rotation State ────────────────────────────────
+  // theta = horizontal (yaw), phi = vertical (pitch)
+  const cameraRot = useRef({ theta: 0, phi: 0.16 });
+  const CAMERA_DISTANCE = 10.5;
+
+  useFrame((state, delta) => {
     const rb = rigidBodyRef.current;
     if (!rb) return;
 
     const input    = localInputRef.current;
-    const { movement, interact } = input;
+    const { movement, look, interact } = input;
+
+    // ── Update Camera Rotation Angles ──
+    const SENSITIVITY = 1.8;
+    cameraRot.current.theta -= look.x * SENSITIVITY * delta;
+    cameraRot.current.phi   = Math.max(
+      -0.2, 
+      Math.min(1.2, cameraRot.current.phi + look.y * SENSITIVITY * delta)
+    );
 
     // ── Publish to shared context ──
     const pos = rb.translation();
@@ -88,10 +101,18 @@ export default function CharacterController({ dialogueOpen }) {
       avatarRef.current.quaternion.slerp(targetQ, ROT_LERP);
     }
 
-    /* ── 3. Fixed behind-player camera ───────────────────── */
-    _camP.set(pos.x, pos.y, pos.z).add(CAMERA_OFFSET);
+    /* ── 3. Dynamic Rotating Camera ───────────────────────── */
+    const { theta, phi } = cameraRot.current;
+    
+    // Calculate relative offset using spherical coordinates
+    const offX = CAMERA_DISTANCE * Math.sin(theta) * Math.cos(phi);
+    const offY = CAMERA_DISTANCE * Math.sin(phi);
+    const offZ = CAMERA_DISTANCE * Math.cos(theta) * Math.cos(phi);
+
+    _camP.set(pos.x + offX, pos.y + offY + 1.2, pos.z + offZ);
     camera.position.lerp(_camP, CAMERA_LERP);
-    _camT.set(pos.x, pos.y + 1.2, pos.z);
+    
+    _camT.set(pos.x, pos.y + 1.6, pos.z);
     camera.lookAt(_camT);
   });
 

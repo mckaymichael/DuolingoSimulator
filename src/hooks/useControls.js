@@ -16,6 +16,7 @@ export function useControls() {
   const keys = useRef({});
   const inputRef = useRef({
     movement: { x: 0, z: 0 },
+    look: { x: 0, y: 0 },
     interact: false,
   });
 
@@ -44,26 +45,40 @@ export function useControls() {
     if (k["KeyA"] || k["ArrowLeft"])  mx -= 1;
     if (k["KeyD"] || k["ArrowRight"]) mx += 1;
 
-    // --- Keyboard interact (E key — pulse for one frame) ---
-    let interact = !!(k["KeyE"] && !k["__e_prev"]);
-    k["__e_prev"] = k["KeyE"];
+    // --- Keyboard interact (E key) ---
+    let interact = !!k["KeyE"];
 
     // --- Gamepad ---
     const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+    let lx = 0;
+    let ly = 0;
+
     for (const gp of gamepads) {
       if (!gp) continue;
       const DEADZONE = 0.15;
+      
+      // Left Stick (Movement)
       const axisX = gp.axes[0] ?? 0;
       const axisZ = gp.axes[1] ?? 0;
       if (Math.abs(axisX) > DEADZONE) mx += axisX;
       if (Math.abs(axisZ) > DEADZONE) mz += axisZ;
 
-      // Button 0 = "A" on Xbox / Cross on PlayStation
+      // Right Stick (Look)
+      const lookX = gp.axes[2] ?? 0;
+      const lookY = gp.axes[3] ?? 0;
+      if (Math.abs(lookX) > DEADZONE) lx += lookX;
+      if (Math.abs(lookY) > DEADZONE) ly += lookY;
+
+      // Face buttons (0:A, 1:B, 2:X, 3:Y)
+      // Check for both .pressed and .value for broader compatibility
       const btnA = gp.buttons[0];
-      const btnPressed = btnA?.pressed ?? false;
-      const btnPrevKey = `__gp_${gp.index}_b0_prev`;
-      if (btnPressed && !k[btnPrevKey]) interact = true;
-      k[btnPrevKey] = btnPressed;
+      const btnB = gp.buttons[1];
+      const btnX = gp.buttons[2];
+      const btnY = gp.buttons[3];
+
+      if (btnA?.pressed || btnB?.pressed || btnX?.pressed || btnY?.pressed) {
+        interact = true;
+      }
     }
 
     // Clamp to [-1, 1]
@@ -72,6 +87,8 @@ export function useControls() {
 
     inputRef.current.movement.x = mx;
     inputRef.current.movement.z = mz;
+    inputRef.current.look.x     = lx;
+    inputRef.current.look.y     = ly;
     inputRef.current.interact   = interact;
   });
 
