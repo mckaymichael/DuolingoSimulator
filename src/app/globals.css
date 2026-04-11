@@ -1,0 +1,183 @@
+:root {
+  /* Earthy color palette */
+  --color-ground:    #c4a882;
+  --color-sand:      #d9c5a0;
+  --color-green:     #2d4a2d;
+  --color-green-mid: #3f6b3f;
+  --color-brown:     #5c3d1e;
+  --color-brown-mid: #7a5230;
+  --color-cream:     #f0e6d0;
+  --color-charcoal:  #1a1a1a;
+  --color-ui-bg:     rgba(18, 12, 6, 0.92);
+  --color-accent:    #8fba6a;
+  --color-accent-dk: #5a8040;
+
+  /* Typography */
+  --font-body: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-charcoal);
+  font-family: var(--font-body);
+  color: var(--color-cream);
+}
+
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Dialogue Overlay ─────────────────────────────────────── */
+.dialogue-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  animation: overlayIn 0.25s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.dialogue-card {
+  background: var(--color-ui-bg);
+  border: 1px solid rgba(143, 186, 106, 0.3);
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  max-width: 540px;
+  width: 90%;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: cardIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardIn {
+  from { transform: translateY(24px) scale(0.96); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.dialogue-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.dialogue-npc-speech {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-cream);
+  margin-bottom: 0.5rem;
+}
+
+.dialogue-hint {
+  font-size: 0.875rem;
+  color: rgba(240, 230, 208, 0.5);
+  font-style: italic;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.dialogue-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dialogue-choice-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(143,186,106,0.2);
+  border-radius: 10px;
+  padding: 0.875rem 1.25rem;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.dialogue-choice-btn:hover {
+  background: rgba(143, 186, 106, 0.15);
+  border-color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+.dialogue-choice-btn.correct {
+  background: rgba(143, 186, 106, 0.25);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.dialogue-choice-btn.incorrect {
+  background: rgba(200, 80, 60, 0.2);
+  border-color: rgba(200, 80, 60, 0.5);
+}
+
+.dialogue-continue-btn {
+  width: 100%;
+  background: var(--color-accent-dk);
+  border: none;
+  border-radius: 10px;
+  padding: 0.875rem 1.25rem;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.dialogue-continue-btn:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ── HUD ──────────────────────────────────────────────────── */
+.hud {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hud-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+}
+
+.hud-controls {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240,230,208,0.45);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+}

@@ -1,0 +1,23 @@
+import "./globals.css";
+
+export const metadata = {
+  title: "LinguaPlaza — 3D Language Adventure",
+  description:
+    "An interactive 3D language-learning experience. Navigate the Town Plaza and learn Spanish through environmental context.",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
