@@ -97,20 +97,34 @@ function DialogueOverlay({ scenarioId, onClose }) {
         setHoveredIdx(100); // sentinel for "Continue" button
     };
     // ── Controller Support ────────────────────────────────────
+    const ctrlRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])({
+        lastBtn: true,
+        lastDpad: {
+            up: false,
+            down: false
+        },
+        navCooldown: 0,
+        startTime: Date.now()
+    });
+    // Track showResult in a ref so the polling loop always has the latest value
+    const showResultRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(showResult);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "DialogueOverlay.useEffect": ()=>{
-            let lastY = 0;
-            let lastDpad = {
-                up: false,
-                down: false
-            };
-            // Initialize lastBtn to current state to prevent "double trigger"
-            const initialGps = navigator.getGamepads();
-            let lastBtn = initialGps[0]?.buttons[0].pressed ?? false;
+            showResultRef.current = showResult;
+        }
+    }["DialogueOverlay.useEffect"], [
+        showResult
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "DialogueOverlay.useEffect": ()=>{
             let rafId;
-            let navCooldown = 0;
             const poll = {
                 "DialogueOverlay.useEffect.poll": (time)=>{
+                    // 200ms initial lockout to prevent "input bleed" from the interaction press
+                    if (Date.now() - ctrlRef.current.startTime < 200) {
+                        rafId = requestAnimationFrame(poll);
+                        return;
+                    }
                     const gpts = navigator.getGamepads();
                     const gp = gpts[0];
                     if (gp) {
@@ -120,37 +134,52 @@ function DialogueOverlay({ scenarioId, onClose }) {
                         // D-pad (12: Up, 13: Down)
                         const dUp = gp.buttons[12]?.pressed;
                         const dDown = gp.buttons[13]?.pressed;
+                        const state = ctrlRef.current;
                         // --- Navigation ---
                         let navInput = 0;
-                        if (dUp && !lastDpad.up) navInput = -1;
-                        if (dDown && !lastDpad.down) navInput = 1;
+                        if (dUp && !state.lastDpad.up) navInput = -1;
+                        if (dDown && !state.lastDpad.down) navInput = 1;
                         // Sticky-stick logic with cooldown to prevent skipping
-                        if (navInput === 0 && Math.abs(y) > DEADZONE && time > navCooldown) {
+                        if (navInput === 0 && Math.abs(y) > DEADZONE && time > state.navCooldown) {
                             navInput = y < 0 ? -1 : 1;
-                            navCooldown = time + 250; // 250ms debounce
+                            state.navCooldown = time + 250; // 250ms debounce
                         }
                         if (navInput !== 0) {
                             setHoveredIdx({
                                 "DialogueOverlay.useEffect.poll": (prev)=>{
-                                    if (showResult) return 100;
+                                    if (showResultRef.current) return 100;
                                     if (navInput < 0) return Math.max(0, prev - 1);
                                     return Math.min(scenario.choices.length - 1, prev + 1);
                                 }
                             }["DialogueOverlay.useEffect.poll"]);
                         }
-                        lastDpad = {
+                        state.lastDpad = {
                             up: !!dUp,
                             down: !!dDown
                         };
                         // --- Selection (A Button) ---
-                        if (btnA && !lastBtn) {
-                            if (!showResult) {
-                                handleChoice(hoveredIdx);
-                            } else if (hoveredIdx === 100) {
-                                onClose();
+                        if (btnA && !state.lastBtn) {
+                            if (!showResultRef.current) {
+                                // We use a functional setter or a ref for hoveredIdx if we didn't have it here.
+                                // But hoveredIdx is needed to trigger handleChoice.
+                                // Actually, handleChoice should probably use the latest hoveredIdx.
+                                setHoveredIdx({
+                                    "DialogueOverlay.useEffect.poll": (currentHovered)=>{
+                                        handleChoice(currentHovered);
+                                        return currentHovered;
+                                    }
+                                }["DialogueOverlay.useEffect.poll"]);
+                            } else {
+                                // If result is shown, check the ref value of continue button focus
+                                setHoveredIdx({
+                                    "DialogueOverlay.useEffect.poll": (currentHovered)=>{
+                                        if (currentHovered === 100) onClose();
+                                        return currentHovered;
+                                    }
+                                }["DialogueOverlay.useEffect.poll"]);
                             }
                         }
-                        lastBtn = btnA;
+                        state.lastBtn = btnA;
                     }
                     rafId = requestAnimationFrame(poll);
                 }
@@ -161,11 +190,9 @@ function DialogueOverlay({ scenarioId, onClose }) {
             })["DialogueOverlay.useEffect"];
         }
     }["DialogueOverlay.useEffect"], [
-        showResult,
-        hoveredIdx,
         scenario.choices.length,
         onClose
-    ]);
+    ]); // Removed dependencies that reset the polling state
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "dialogue-overlay",
         onClick: (e)=>e.stopPropagation(),
@@ -180,7 +207,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 99,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -192,7 +219,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 102,
+                    lineNumber: 122,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -203,7 +230,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 105,
+                    lineNumber: 125,
                     columnNumber: 9
                 }, this),
                 !showResult ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -216,12 +243,12 @@ function DialogueOverlay({ scenarioId, onClose }) {
                             children: choice
                         }, idx, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 111,
+                            lineNumber: 131,
                             columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 109,
+                    lineNumber: 129,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     children: [
@@ -244,13 +271,13 @@ function DialogueOverlay({ scenarioId, onClose }) {
                                     ]
                                 }, idx, true, {
                                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                                    lineNumber: 132,
+                                    lineNumber: 152,
                                     columnNumber: 19
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 124,
+                            lineNumber: 144,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -267,7 +294,7 @@ function DialogueOverlay({ scenarioId, onClose }) {
                             children: isCorrect ? scenario.successMessage : "Hmm, that doesn't seem right. Pay attention to the context clues around you."
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 147,
+                            lineNumber: 167,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -278,28 +305,28 @@ function DialogueOverlay({ scenarioId, onClose }) {
                             children: isCorrect ? "¡Continuar! →" : "Try again next time →"
                         }, void 0, false, {
                             fileName: "[project]/src/components/DialogueOverlay.jsx",
-                            lineNumber: 166,
+                            lineNumber: 186,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/DialogueOverlay.jsx",
-                    lineNumber: 123,
+                    lineNumber: 143,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/DialogueOverlay.jsx",
-            lineNumber: 97,
+            lineNumber: 117,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/DialogueOverlay.jsx",
-        lineNumber: 96,
+        lineNumber: 116,
         columnNumber: 5
     }, this);
 }
-_s(DialogueOverlay, "wZwyZQNAT/8Ot13oSV4mVRm1Yl8=");
+_s(DialogueOverlay, "h2XYSJQT//1C5sgj8VSnQnZsc+A=");
 _c = DialogueOverlay;
 var _c;
 __turbopack_context__.k.register(_c, "DialogueOverlay");

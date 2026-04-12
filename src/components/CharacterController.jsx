@@ -135,15 +135,15 @@ export default function CharacterController({ dialogueOpen }) {
        * to use a rigged character model.
        */}
       <group ref={avatarRef}>
-        {/* Long wool coat body */}
+        {/* Bright jacket body */}
         <mesh castShadow position={[0, 0, 0]}>
           <cylinderGeometry args={[0.3, 0.38, 1.2, 16]} />
-          <meshStandardMaterial color="#2d4228" roughness={0.75} metalness={0.05} />
+          <meshStandardMaterial color="#ff7b00" roughness={0.4} metalness={0.1} />
         </mesh>
-        {/* Coat hem */}
+        {/* Jacket hem */}
         <mesh castShadow position={[0, -0.68, 0]}>
           <cylinderGeometry args={[0.35, 0.42, 0.22, 16]} />
-          <meshStandardMaterial color="#22321e" roughness={0.8} />
+          <meshStandardMaterial color="#e66e00" roughness={0.5} />
         </mesh>
         {/* Neck */}
         <mesh castShadow position={[0, 0.68, 0]}>
@@ -164,10 +164,10 @@ export default function CharacterController({ dialogueOpen }) {
           <sphereGeometry args={[0.04, 8, 8]} />
           <meshStandardMaterial color="#1a1209" />
         </mesh>
-        {/* Collar accent */}
+        {/* Collar accent - white for high contrast */}
         <mesh castShadow position={[0, 0.55, 0.15]}>
           <boxGeometry args={[0.28, 0.18, 0.08]} />
-          <meshStandardMaterial color="#3f6b3f" roughness={0.6} />
+          <meshStandardMaterial color="#ffffff" roughness={0.3} />
         </mesh>
       </group>
     </RigidBody>

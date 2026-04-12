@@ -10,48 +10,29 @@ import Environment from "./Environment";
 /**
  * CanvasSetup
  *
- * Full-screen R3F Canvas with shadows, lighting rig, and Rapier physics.
- * PlayerProvider wraps the scene so CharacterController and InteractableProp
- * can share player position and input refs without prop-drilling.
+ * Full-screen R3F Canvas with a dark, technical vibe for the Sketch aesthetic.
  */
 export default function CanvasSetup({ onInteract, dialogueOpen }) {
   return (
     <Canvas
       shadows
       camera={{ fov: 65, near: 0.1, far: 300, position: [0, 8, 14] }}
-      style={{ width: "100vw", height: "100vh", background: "#1a2015" }}
+      style={{ width: "100vw", height: "100vh", background: "#050804" }}
     >
-      {/* ── Lighting ─────────────────────────────────── */}
-      <ambientLight intensity={0.55} color="#c8b89a" />
-
-      <directionalLight
-        castShadow
-        position={[18, 24, 10]}
-        intensity={2.2}
-        color="#ffe8c0"
-        shadow-mapSize={[2048, 2048]}
-        shadow-camera-near={0.1}
-        shadow-camera-far={120}
-        shadow-camera-left={-50}
-        shadow-camera-right={50}
-        shadow-camera-top={50}
-        shadow-camera-bottom={-50}
-        shadow-bias={-0.0004}
+      {/* ── Lighting (Muted for the glowing wireframe aesthetic) ── */}
+      <ambientLight intensity={0.2} color="#ccffcc" />
+      
+      {/* Subtle top light to give player depth */}
+      <spotLight 
+        position={[0, 40, 0]} 
+        intensity={1} 
+        angle={0.6} 
+        penumbra={1} 
+        color="#ffffff" 
       />
 
-      <directionalLight
-        position={[-12, 8, -10]}
-        intensity={0.4}
-        color="#a8c0d8"
-      />
-
-      <hemisphereLight
-        skyColor="#d4c4a0"
-        groundColor="#3d2a12"
-        intensity={0.5}
-      />
-
-      <fog attach="fog" args={["#1e2a18", 50, 130]} />
+      {/* Dark tech fog */}
+      <fog attach="fog" args={["#050804", 40, 150]} />
 
       {/* ── Physics + Scene ───────────────────────────── */}
       <Physics gravity={[0, -20, 0]}>

@@ -331,9 +331,9 @@ function CharacterController({ dialogueOpen }) {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#2d4228",
-                                roughness: 0.75,
-                                metalness: 0.05
+                                color: "#ff7b00",
+                                roughness: 0.4,
+                                metalness: 0.1
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
                                 lineNumber: 141,
@@ -366,8 +366,8 @@ function CharacterController({ dialogueOpen }) {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#22321e",
-                                roughness: 0.8
+                                color: "#e66e00",
+                                roughness: 0.5
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
                                 lineNumber: 146,
@@ -528,8 +528,8 @@ function CharacterController({ dialogueOpen }) {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#3f6b3f",
-                                roughness: 0.6
+                                color: "#ffffff",
+                                roughness: 0.3
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CharacterController.jsx",
                                 lineNumber: 170,
@@ -722,151 +722,83 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@react-three/rapier/dist/react-three-rapier.esm.js [app-client] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@react-three/drei/core/Text.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@react-three/drei/core/Gltf.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@react-three/drei/core/Grid.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/three/build/three.core.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractableProp$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/InteractableProp.jsx [app-client] (ecmascript)");
 ;
+var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-/* ─── Constants ──────────────────────────────────────────── */ const WH = 3.6; // wall height
-const WH2 = WH / 2;
-const WALL_COLOR = "#ddd5c8";
-const WALL_ROUGHNESS = 0.88;
-/* ─── Helpers ────────────────────────────────────────────── */ function Wall({ pos, args, rot = 0, color = WALL_COLOR, roughness = WALL_ROUGHNESS }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
-        type: "fixed",
-        colliders: "cuboid",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-            castShadow: true,
-            receiveShadow: true,
-            position: pos,
-            rotation: [
-                0,
-                rot,
-                0
-            ],
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                    args: args
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Environment.jsx",
-                    lineNumber: 16,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                    color: color,
-                    roughness: roughness,
-                    metalness: 0.02
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Environment.jsx",
-                    lineNumber: 17,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/Environment.jsx",
-            lineNumber: 15,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
-        fileName: "[project]/src/components/Environment.jsx",
-        lineNumber: 14,
-        columnNumber: 5
-    }, this);
-}
-_c = Wall;
-function FloorPanel({ pos, size, color, rot = 0 }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-        receiveShadow: true,
-        rotation: [
-            -Math.PI / 2,
-            rot,
-            0
-        ],
-        position: pos,
+;
+;
+/* ─── Constants ──────────────────────────────────────────── */ const MODEL_SCALE = 4.0;
+const ACCENT_COLOR = "#58cc02"; // Duolingo Green
+const GRID_COLOR = "#223018";
+function Environment({ onInteract, dialogueOpen }) {
+    _s();
+    const { scene } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"])("/Duolingo.glb");
+    // Stylize the model into a blueprint wireframe
+    const sketchScene = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "Environment.useMemo[sketchScene]": ()=>{
+            const cloned = scene.clone();
+            cloned.traverse({
+                "Environment.useMemo[sketchScene]": (child)=>{
+                    if (child.isMesh) {
+                        child.material = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MeshStandardMaterial"]({
+                            color: "#051005",
+                            emissive: ACCENT_COLOR,
+                            emissiveIntensity: 1.5,
+                            wireframe: true,
+                            transparent: true,
+                            opacity: 0.4,
+                            metalness: 0.1,
+                            roughness: 0.1
+                        });
+                        child.castShadow = false;
+                        child.receiveShadow = false;
+                    }
+                }
+            }["Environment.useMemo[sketchScene]"]);
+            return cloned;
+        }
+    }["Environment.useMemo[sketchScene]"], [
+        scene
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("group", {
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("planeGeometry", {
-                args: size
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("color", {
+                attach: "background",
+                args: [
+                    "#0a1208"
+                ]
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 26,
+                lineNumber: 43,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                color: color,
-                roughness: 0.9
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 27,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/Environment.jsx",
-        lineNumber: 25,
-        columnNumber: 5
-    }, this);
-}
-_c1 = FloorPanel;
-/**
- * AttractionStation
- * Green placeholder block for an attraction/exhibit.
- * Collidable, with emissive screen panel on front face.
- */ function AttractionStation({ position, rot = 0, label = "" }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("group", {
-        position: position,
-        rotation: [
-            0,
-            rot,
-            0
-        ],
-        children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
                 type: "fixed",
-                colliders: "cuboid",
+                colliders: false,
+                position: [
+                    0,
+                    -0.05,
+                    0
+                ],
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
-                        receiveShadow: true,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    4,
-                                    1.8,
-                                    2.6
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 43,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#375a37",
-                                roughness: 0.65,
-                                metalness: 0.06
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 44,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 42,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        position: [
+                        rotation: [
+                            -Math.PI / 2,
                             0,
-                            0.96,
                             0
                         ],
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("planeGeometry", {
                                 args: [
-                                    4.1,
-                                    0.12,
-                                    2.7
+                                    1000,
+                                    1000
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
@@ -874,8 +806,7 @@ _c1 = FloorPanel;
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#2a472a",
-                                roughness: 0.5
+                                color: "#0a1208"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
                                 lineNumber: 49,
@@ -886,933 +817,131 @@ _c1 = FloorPanel;
                         fileName: "[project]/src/components/Environment.jsx",
                         lineNumber: 47,
                         columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 40,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                position: [
-                    0,
-                    0.3,
-                    1.31
-                ],
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("planeGeometry", {
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["CuboidCollider"], {
                         args: [
-                            2.8,
-                            1.3
+                            500,
+                            0.1,
+                            500
+                        ],
+                        position: [
+                            0,
+                            -0.1,
+                            0
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 54,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                        color: "#050d05",
-                        emissive: "#0d3a0d",
-                        emissiveIntensity: 0.6,
-                        roughness: 0.1,
-                        metalness: 0.3
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 55,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 53,
+                lineNumber: 46,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                position: [
-                    1.7,
-                    0.78,
-                    1.31
-                ],
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circleGeometry", {
-                        args: [
-                            0.07,
-                            8
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 65,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                        color: "#44ff44",
-                        emissive: "#44ff44",
-                        emissiveIntensity: 3
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 66,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 64,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Grid"], {
                 position: [
                     0,
-                    2.2,
+                    0.01,
                     0
                 ],
-                intensity: 4,
-                color: "#a8e8a8",
-                distance: 8,
-                decay: 2
+                args: [
+                    500,
+                    500
+                ],
+                sectionSize: 10,
+                sectionThickness: 1.5,
+                sectionColor: GRID_COLOR,
+                cellSize: 2,
+                cellThickness: 0.8,
+                cellColor: GRID_COLOR,
+                infiniteGrid: true,
+                fadeDistance: 400,
+                fadeStrength: 5
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 69,
+                lineNumber: 54,
                 columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/src/components/Environment.jsx",
-        lineNumber: 39,
-        columnNumber: 5
-    }, this);
-}
-_c2 = AttractionStation;
-function Environment({ onInteract, dialogueOpen }) {
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("group", {
-        children: [
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
                 type: "fixed",
-                colliders: "cuboid",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                    receiveShadow: true,
-                    rotation: [
-                        -Math.PI / 2,
-                        0,
-                        0
-                    ],
+                colliders: "trimesh",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("primitive", {
+                    object: sketchScene,
+                    scale: MODEL_SCALE,
                     position: [
                         0,
-                        -0.05,
+                        0,
                         0
-                    ],
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("planeGeometry", {
-                            args: [
-                                160,
-                                160
-                            ]
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 89,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                            color: "#6a5c48",
-                            roughness: 0.95
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 90,
-                            columnNumber: 11
-                        }, this)
                     ]
-                }, void 0, true, {
+                }, void 0, false, {
                     fileName: "[project]/src/components/Environment.jsx",
-                    lineNumber: 88,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 87,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FloorPanel, {
-                pos: [
-                    4,
-                    0.01,
-                    -8
-                ],
-                size: [
-                    56,
-                    54
-                ],
-                color: "#d4c9b4"
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 96,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FloorPanel, {
-                pos: [
-                    -34,
-                    0.01,
-                    -9
-                ],
-                size: [
-                    24,
-                    38
-                ],
-                color: "#c2b69e"
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 98,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -14,
-                    WH2,
-                    -32
-                ],
-                args: [
-                    18,
-                    WH,
-                    0.5
-                ],
-                rot: Math.PI * 0.112
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 105,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    4,
-                    WH2,
-                    -36
-                ],
-                args: [
-                    20,
-                    WH,
-                    0.5
-                ],
-                rot: Math.PI * 0.04
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 107,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    17,
-                    WH2,
-                    -35
-                ],
-                args: [
-                    18,
-                    WH,
-                    0.5
-                ],
-                rot: -Math.PI * 0.06
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 109,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    28,
-                    WH2,
-                    -32
-                ],
-                args: [
-                    10,
-                    WH,
-                    0.5
-                ],
-                rot: -Math.PI * 0.13
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 111,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -22.5,
-                    WH2,
-                    -29.2
-                ],
-                args: [
-                    2,
-                    WH,
-                    0.5
-                ],
-                rot: 0
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 113,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    32,
-                    WH2,
-                    -11
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    40
-                ],
-                rot: -Math.PI * 0.0
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 119,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    24,
-                    WH2,
-                    -0
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    16
-                ],
-                rot: 1.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 121,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -8,
-                    WH2,
-                    12
-                ],
-                args: [
-                    20,
-                    WH,
-                    0.5
-                ],
-                rot: Math.PI * 0.065
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 128,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    6,
-                    WH2,
-                    17
-                ],
-                args: [
-                    16,
-                    WH,
-                    0.5
-                ],
-                rot: -Math.PI * 0.02
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 130,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    14.5,
-                    WH2,
-                    13
-                ],
-                args: [
-                    10,
-                    WH,
-                    0.5
-                ],
-                rot: 1.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 132,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    35.8,
-                    WH2,
-                    9
-                ],
-                args: [
-                    8,
-                    WH,
-                    0.5
-                ],
-                rot: 0
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 135,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    35.8,
-                    WH2,
-                    19
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    7
-                ],
-                rot: 1.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 137,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -22,
-                    WH2,
-                    -19
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    20
-                ]
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 147,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                position: [
-                    -22,
-                    WH - 0.35,
-                    -7
-                ],
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                        args: [
-                            0.5,
-                            0.7,
-                            4
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 150,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                        color: WALL_COLOR,
-                        roughness: WALL_ROUGHNESS
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 151,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 149,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -22,
-                    WH2,
-                    2.5
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    15
-                ]
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 154,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -34,
-                    WH2,
-                    -29
-                ],
-                args: [
-                    24,
-                    WH,
-                    0.5
-                ]
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 161,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -46,
-                    WH2,
-                    -9.5
-                ],
-                args: [
-                    0.5,
-                    WH,
-                    39
-                ]
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 163,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Wall, {
-                pos: [
-                    -34,
-                    WH2,
-                    10
-                ],
-                args: [
-                    24,
-                    WH,
-                    0.5
-                ]
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 165,
-                columnNumber: 7
-            }, this),
-            Array.from({
-                length: 8
-            }).map((_, i)=>{
-                const angle = i / 8 * Math.PI * 2;
-                const r = 5.5;
-                const cx = 4, cz = -13;
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
-                    type: "fixed",
-                    colliders: "cuboid",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                            castShadow: true,
-                            receiveShadow: true,
-                            position: [
-                                cx + Math.sin(angle) * r,
-                                0.6,
-                                cz + Math.cos(angle) * r
-                            ],
-                            rotation: [
-                                0,
-                                angle,
-                                0
-                            ],
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                    args: [
-                                        4.5,
-                                        1.2,
-                                        0.45
-                                    ]
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Environment.jsx",
-                                    lineNumber: 182,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                    color: "#b03020",
-                                    roughness: 0.45,
-                                    metalness: 0.18
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Environment.jsx",
-                                    lineNumber: 183,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 177,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                            position: [
-                                cx + Math.sin(angle) * r,
-                                1.26,
-                                cz + Math.cos(angle) * r
-                            ],
-                            rotation: [
-                                0,
-                                angle,
-                                0
-                            ],
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                    args: [
-                                        4.6,
-                                        0.12,
-                                        0.55
-                                    ]
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Environment.jsx",
-                                    lineNumber: 190,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                    color: "#8c2016",
-                                    roughness: 0.35,
-                                    metalness: 0.25
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Environment.jsx",
-                                    lineNumber: 191,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 186,
-                            columnNumber: 13
-                        }, this)
-                    ]
-                }, `ring-${i}`, true, {
-                    fileName: "[project]/src/components/Environment.jsx",
-                    lineNumber: 176,
-                    columnNumber: 11
-                }, this);
-            }),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                position: [
-                    4,
-                    1.0,
-                    -13
-                ],
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("cylinderGeometry", {
-                        args: [
-                            0.65,
-                            0.65,
-                            2,
-                            16
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 198,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                        color: "#1a0808",
-                        emissive: "#9b1a0a",
-                        emissiveIntensity: 1.8,
-                        roughness: 0.25,
-                        metalness: 0.35
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 199,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 197,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
                 position: [
-                    4,
-                    1.8,
-                    -13
+                    0,
+                    20,
+                    0
                 ],
-                intensity: 14,
-                color: "#ff4422",
-                distance: 14,
+                intensity: 25,
+                color: ACCENT_COLOR,
+                distance: 100,
                 decay: 2
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 207,
+                lineNumber: 74,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
-                type: "fixed",
-                colliders: "cuboid",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
-                        receiveShadow: true,
-                        position: [
-                            -12.5,
-                            0.55,
-                            7
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    5.2,
-                                    1.0,
-                                    0.65
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 215,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#b03020",
-                                roughness: 0.5,
-                                metalness: 0.12
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 216,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 214,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        position: [
-                            -12.5,
-                            1.06,
-                            7
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    5.35,
-                                    0.12,
-                                    0.8
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 219,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#8a1e10",
-                                roughness: 0.38,
-                                metalness: 0.22
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 220,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 218,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 213,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
-                type: "fixed",
-                colliders: "cuboid",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
-                        receiveShadow: true,
-                        position: [
-                            -15.2,
-                            0.55,
-                            4.4
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    0.65,
-                                    1.0,
-                                    5.6
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 226,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#b03020",
-                                roughness: 0.5,
-                                metalness: 0.12
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 227,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 225,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        position: [
-                            -15.2,
-                            1.06,
-                            4.4
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    0.8,
-                                    0.12,
-                                    5.75
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 230,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#8a1e10",
-                                roughness: 0.38,
-                                metalness: 0.22
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 231,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 229,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 224,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AttractionStation, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
                 position: [
-                    20,
-                    0.9,
-                    -18
+                    40,
+                    15,
+                    -40
                 ],
-                rot: -Math.PI * 0.20
+                intensity: 15,
+                color: "#ffffff",
+                distance: 80,
+                decay: 2
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 240,
+                lineNumber: 75,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AttractionStation, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
                 position: [
-                    22,
-                    0.9,
-                    -23
+                    -40,
+                    15,
+                    40
                 ],
-                rot: -Math.PI * 0.30
+                intensity: 15,
+                color: "#ffffff",
+                distance: 80,
+                decay: 2
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 241,
+                lineNumber: 76,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AttractionStation, {
-                position: [
-                    17,
-                    0.9,
-                    -29
-                ],
-                rot: -Math.PI * 0.43
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ambientLight", {
+                intensity: 0.2
             }, void 0, false, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 242,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AttractionStation, {
-                position: [
-                    6,
-                    0.9,
-                    -26
-                ],
-                rot: Math.PI * 0.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 244,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AttractionStation, {
-                position: [
-                    -5,
-                    0.9,
-                    -23
-                ],
-                rot: Math.PI * 0.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 245,
-                columnNumber: 7
-            }, this),
-            Array.from({
-                length: 5
-            }).map((_, i)=>{
-                const t = i / 4; // 0..1
-                const x = -6 + t * 22; // x: -6 to +16
-                const z = 15.5 - Math.abs(t - 0.5) * 4; // gentle arc
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                    position: [
-                        x,
-                        0.02,
-                        z
-                    ],
-                    rotation: [
-                        -Math.PI / 2,
-                        0,
-                        0
-                    ],
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("planeGeometry", {
-                            args: [
-                                3.5,
-                                0.35
-                            ]
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 257,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                            color: "#2d6b2d",
-                            emissive: "#1a4a1a",
-                            emissiveIntensity: 0.8,
-                            roughness: 0.5
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Environment.jsx",
-                            lineNumber: 258,
-                            columnNumber: 13
-                        }, this)
-                    ]
-                }, `strip-${i}`, true, {
-                    fileName: "[project]/src/components/Environment.jsx",
-                    lineNumber: 256,
-                    columnNumber: 11
-                }, this);
-            }),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Text"], {
-                position: [
-                    -22.22,
-                    2.85,
-                    -7
-                ],
-                rotation: [
-                    0,
-                    Math.PI / 2,
-                    0
-                ],
-                fontSize: 0.36,
-                color: "#8fba6a",
-                fontWeight: 700,
-                anchorX: "center",
-                anchorY: "middle",
-                letterSpacing: 0.08,
-                children: "▶ THE MAZE"
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 271,
+                lineNumber: 77,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractableProp$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 position: [
-                    -41,
+                    -8,
                     0.55,
-                    -22
+                    -8
                 ],
                 promptHeight: 2.2,
                 interactRadius: 3.5,
@@ -1824,86 +953,46 @@ function Environment({ onInteract, dialogueOpen }) {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
                         type: "fixed",
                         colliders: "cuboid",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                castShadow: true,
-                                receiveShadow: true,
-                                rotation: [
-                                    0,
-                                    Math.PI / 2,
-                                    0
-                                ],
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                        args: [
-                                            3.2,
-                                            1.0,
-                                            0.8
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 302,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#5c3d1e",
-                                        roughness: 0.6
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 303,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 301,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                position: [
-                                    0,
-                                    0.56,
-                                    0
-                                ],
-                                rotation: [
-                                    0,
-                                    Math.PI / 2,
-                                    0
-                                ],
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                        args: [
-                                            3.35,
-                                            0.12,
-                                            0.95
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 306,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#8b6540",
-                                        roughness: 0.4
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 307,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 305,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
+                            castShadow: true,
+                            receiveShadow: false,
+                            rotation: [
+                                0,
+                                Math.PI / 4,
+                                0
+                            ],
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
+                                    args: [
+                                        3.2,
+                                        1.0,
+                                        0.8
+                                    ]
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 96,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
+                                    color: "#8b5a2b",
+                                    roughness: 0.6
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 97,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Environment.jsx",
+                            lineNumber: 95,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 300,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             -0.9,
                             1.3,
@@ -1919,25 +1008,24 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 312,
+                                lineNumber: 101,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#4a6b4a",
-                                roughness: 0.7
+                                color: "#ff4a4a",
+                                roughness: 0.5
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 313,
+                                lineNumber: 102,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 311,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             -0.9,
                             2.08,
@@ -1952,68 +1040,33 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 316,
+                                lineNumber: 105,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#c8a87a",
-                                roughness: 0.65
+                                color: "#ffdbac"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 317,
+                                lineNumber: 106,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 315,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
-                        position: [
-                            -0.9,
-                            0.84,
-                            0.55
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    0.5,
-                                    0.55,
-                                    0.35
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 321,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#222",
-                                roughness: 0.3,
-                                metalness: 0.7
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 322,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 320,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 290,
+                lineNumber: 85,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractableProp$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 position: [
-                    -41,
+                    8,
                     0.45,
-                    -10
+                    -8
                 ],
                 promptHeight: 2.0,
                 interactRadius: 3.0,
@@ -2025,83 +1078,48 @@ function Environment({ onInteract, dialogueOpen }) {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
                         type: "fixed",
                         colliders: "cuboid",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                castShadow: true,
-                                receiveShadow: true,
-                                position: [
-                                    0,
-                                    0.35,
-                                    0
-                                ],
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                        args: [
-                                            0.7,
-                                            0.12,
-                                            2.4
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 338,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#7a5230",
-                                        roughness: 0.8
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 339,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 337,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                castShadow: true,
-                                receiveShadow: true,
-                                position: [
-                                    -0.32,
-                                    0.7,
-                                    0
-                                ],
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                        args: [
-                                            0.1,
-                                            0.55,
-                                            2.4
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 342,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#7a5230",
-                                        roughness: 0.8
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 343,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 341,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
+                            position: [
+                                0,
+                                0.35,
+                                0
+                            ],
+                            rotation: [
+                                0,
+                                -Math.PI / 4,
+                                0
+                            ],
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
+                                    args: [
+                                        0.7,
+                                        0.12,
+                                        2.4
+                                    ]
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 122,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
+                                    color: "#554433"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 123,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Environment.jsx",
+                            lineNumber: 121,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 336,
+                        lineNumber: 120,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             0,
                             1.0,
@@ -2117,25 +1135,24 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 348,
+                                lineNumber: 127,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#8b7355",
-                                roughness: 0.7
+                                color: "#4a90ff",
+                                roughness: 0.5
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 349,
+                                lineNumber: 128,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 347,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             0,
                             1.65,
@@ -2150,67 +1167,33 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 352,
+                                lineNumber: 131,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#d4b896",
-                                roughness: 0.7
+                                color: "#eadaba"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 353,
+                                lineNumber: 132,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 351,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
-                        position: [
-                            0,
-                            0.52,
-                            -0.55
-                        ],
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("boxGeometry", {
-                                args: [
-                                    0.4,
-                                    0.28,
-                                    0.3
-                                ]
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 357,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#8b6540",
-                                roughness: 0.7
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 358,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 356,
+                        lineNumber: 130,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 327,
+                lineNumber: 111,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractableProp$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 position: [
-                    -41,
+                    -9,
                     0.5,
-                    2
+                    18
                 ],
                 promptHeight: 2.0,
                 interactRadius: 2.8,
@@ -2222,80 +1205,41 @@ function Environment({ onInteract, dialogueOpen }) {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["RigidBody"], {
                         type: "fixed",
                         colliders: "cuboid",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                castShadow: true,
-                                receiveShadow: true,
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("cylinderGeometry", {
-                                        args: [
-                                            0.38,
-                                            0.3,
-                                            0.9,
-                                            16
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 374,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#3d3d3d",
-                                        roughness: 0.8
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 375,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 373,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                                position: [
-                                    0,
-                                    0.49,
-                                    0
-                                ],
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("cylinderGeometry", {
-                                        args: [
-                                            0.42,
-                                            0.4,
-                                            0.08,
-                                            16
-                                        ]
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 378,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                        color: "#555",
-                                        roughness: 0.8
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Environment.jsx",
-                                        lineNumber: 379,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 377,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("cylinderGeometry", {
+                                    args: [
+                                        0.38,
+                                        0.3,
+                                        0.9,
+                                        16
+                                    ]
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 148,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
+                                    color: "#333"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Environment.jsx",
+                                    lineNumber: 149,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Environment.jsx",
+                            lineNumber: 147,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 372,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
-                            0.9,
+                            0,
                             0.7,
                             0
                         ],
@@ -2309,27 +1253,26 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 384,
+                                lineNumber: 153,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#e8820a",
-                                roughness: 0.7
+                                color: "#ffd700",
+                                roughness: 0.5
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 385,
+                                lineNumber: 154,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 383,
+                        lineNumber: 152,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
-                            0.9,
+                            0,
                             1.47,
                             0
                         ],
@@ -2342,34 +1285,33 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 388,
+                                lineNumber: 157,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#c8a87a",
-                                roughness: 0.7
+                                color: "#c8a87a"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 389,
+                                lineNumber: 158,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 387,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 363,
+                lineNumber: 137,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractableProp$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 position: [
-                    -41,
+                    8,
                     0.75,
-                    -16
+                    8
                 ],
                 promptHeight: 2.0,
                 interactRadius: 2.8,
@@ -2379,7 +1321,6 @@ function Environment({ onInteract, dialogueOpen }) {
                 onInteract: onInteract,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             0,
                             0,
@@ -2395,25 +1336,24 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 405,
+                                lineNumber: 173,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#5b8dd9",
-                                roughness: 0.7
+                                color: "#ff6b6b",
+                                roughness: 0.5
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 406,
+                                lineNumber: 174,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 404,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             0,
                             0.87,
@@ -2428,25 +1368,23 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 409,
+                                lineNumber: 177,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#d4aa7a",
-                                roughness: 0.7
+                                color: "#ffd4aa"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 410,
+                                lineNumber: 178,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 408,
+                        lineNumber: 176,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
-                        castShadow: true,
                         position: [
                             0.22,
                             0.5,
@@ -2466,177 +1404,44 @@ function Environment({ onInteract, dialogueOpen }) {
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 414,
+                                lineNumber: 181,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
-                                color: "#f5e6c0",
-                                roughness: 0.7
+                                color: "#fff"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Environment.jsx",
-                                lineNumber: 415,
+                                lineNumber: 182,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Environment.jsx",
-                        lineNumber: 413,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 394,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    4,
-                    3.3,
-                    -13
-                ],
-                intensity: 18,
-                color: "#fff4e0",
-                distance: 30,
-                decay: 1.8
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 423,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    4,
-                    3.3,
-                    3
-                ],
-                intensity: 12,
-                color: "#fff4e0",
-                distance: 24,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 424,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    -10,
-                    3.3,
-                    -8
-                ],
-                intensity: 10,
-                color: "#f5edd8",
-                distance: 22,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 425,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    18,
-                    3.3,
-                    -20
-                ],
-                intensity: 12,
-                color: "#f5edd8",
-                distance: 24,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 426,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    6,
-                    3.3,
-                    -30
-                ],
-                intensity: 10,
-                color: "#f5edd8",
-                distance: 22,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 427,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    -34,
-                    3.2,
-                    -22
-                ],
-                intensity: 14,
-                color: "#f0e0c8",
-                distance: 22,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 430,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    -34,
-                    3.2,
-                    -3
-                ],
-                intensity: 12,
-                color: "#f0e0c8",
-                distance: 22,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 431,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    -22,
-                    2.6,
-                    -7
-                ],
-                intensity: 6,
-                color: "#8fba6a",
-                distance: 10,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 434,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
-                position: [
-                    21,
-                    2.8,
-                    -22
-                ],
-                intensity: 5,
-                color: "#a8e8a8",
-                distance: 12,
-                decay: 2
-            }, void 0, false, {
-                fileName: "[project]/src/components/Environment.jsx",
-                lineNumber: 437,
+                lineNumber: 163,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Environment.jsx",
-        lineNumber: 85,
+        lineNumber: 41,
         columnNumber: 5
     }, this);
 }
-_c3 = Environment;
-var _c, _c1, _c2, _c3;
-__turbopack_context__.k.register(_c, "Wall");
-__turbopack_context__.k.register(_c1, "FloorPanel");
-__turbopack_context__.k.register(_c2, "AttractionStation");
-__turbopack_context__.k.register(_c3, "Environment");
+_s(Environment, "O4W/FpoUXPoWWW7NByZbFQRunv8=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"]
+    ];
+});
+_c = Environment;
+__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"].preload("/Duolingo.glb");
+var _c;
+__turbopack_context__.k.register(_c, "Environment");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -2679,74 +1484,42 @@ function CanvasSetup({ onInteract, dialogueOpen }) {
         style: {
             width: "100vw",
             height: "100vh",
-            background: "#1a2015"
+            background: "#050804"
         },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ambientLight", {
-                intensity: 0.55,
-                color: "#c8b89a"
+                intensity: 0.2,
+                color: "#ccffcc"
             }, void 0, false, {
                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 25,
+                lineNumber: 23,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("directionalLight", {
-                castShadow: true,
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("spotLight", {
                 position: [
-                    18,
-                    24,
-                    10
+                    0,
+                    40,
+                    0
                 ],
-                intensity: 2.2,
-                color: "#ffe8c0",
-                "shadow-mapSize": [
-                    2048,
-                    2048
-                ],
-                "shadow-camera-near": 0.1,
-                "shadow-camera-far": 120,
-                "shadow-camera-left": -50,
-                "shadow-camera-right": 50,
-                "shadow-camera-top": 50,
-                "shadow-camera-bottom": -50,
-                "shadow-bias": -0.0004
+                intensity: 1,
+                angle: 0.6,
+                penumbra: 1,
+                color: "#ffffff"
             }, void 0, false, {
                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 27,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("directionalLight", {
-                position: [
-                    -12,
-                    8,
-                    -10
-                ],
-                intensity: 0.4,
-                color: "#a8c0d8"
-            }, void 0, false, {
-                fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 42,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hemisphereLight", {
-                skyColor: "#d4c4a0",
-                groundColor: "#3d2a12",
-                intensity: 0.5
-            }, void 0, false, {
-                fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 48,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("fog", {
                 attach: "fog",
                 args: [
-                    "#1e2a18",
-                    50,
-                    130
+                    "#050804",
+                    40,
+                    150
                 ]
             }, void 0, false, {
                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 54,
+                lineNumber: 35,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$rapier$2f$dist$2f$react$2d$three$2d$rapier$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Physics"], {
@@ -2764,36 +1537,36 @@ function CanvasSetup({ onInteract, dialogueOpen }) {
                                 dialogueOpen: dialogueOpen
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                                lineNumber: 60,
+                                lineNumber: 41,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CharacterController$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 dialogueOpen: dialogueOpen
                             }, void 0, false, {
                                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                                lineNumber: 61,
+                                lineNumber: 42,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/CanvasSetup.jsx",
-                        lineNumber: 59,
+                        lineNumber: 40,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/CanvasSetup.jsx",
-                    lineNumber: 58,
+                    lineNumber: 39,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/CanvasSetup.jsx",
-                lineNumber: 57,
+                lineNumber: 38,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/CanvasSetup.jsx",
-        lineNumber: 19,
+        lineNumber: 17,
         columnNumber: 5
     }, this);
 }

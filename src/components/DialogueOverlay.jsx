@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SCENARIOS } from "@/data/scenarios";
 
 /**
@@ -30,18 +30,26 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
   };
 
   // ── Controller Support ────────────────────────────────────
+  const ctrlRef = useRef({
+    lastBtn: true, // Initialize to true to ignore the initial press that opened the dialogue
+    lastDpad: { up: false, down: false },
+    navCooldown: 0,
+    startTime: Date.now()
+  });
+
+  // Track showResult in a ref so the polling loop always has the latest value
+  const showResultRef = useRef(showResult);
+  useEffect(() => { showResultRef.current = showResult; }, [showResult]);
+
   useEffect(() => {
-    let lastY = 0;
-    let lastDpad = { up: false, down: false };
-    
-    // Initialize lastBtn to current state to prevent "double trigger"
-    const initialGps = navigator.getGamepads();
-    let lastBtn = initialGps[0]?.buttons[0].pressed ?? false;
-    
     let rafId;
-    let navCooldown = 0;
 
     const poll = (time) => {
+      // 200ms initial lockout to prevent "input bleed" from the interaction press
+      if (Date.now() - ctrlRef.current.startTime < 200) {
+        rafId = requestAnimationFrame(poll);
+        return;
+      }
       const gpts = navigator.getGamepads();
       const gp = gpts[0];
 
@@ -54,43 +62,55 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
         const dUp = gp.buttons[12]?.pressed;
         const dDown = gp.buttons[13]?.pressed;
 
+        const state = ctrlRef.current;
+
         // --- Navigation ---
         let navInput = 0;
-        if (dUp && !lastDpad.up) navInput = -1;
-        if (dDown && !lastDpad.down) navInput = 1;
+        if (dUp && !state.lastDpad.up) navInput = -1;
+        if (dDown && !state.lastDpad.down) navInput = 1;
 
         // Sticky-stick logic with cooldown to prevent skipping
-        if (navInput === 0 && Math.abs(y) > DEADZONE && time > navCooldown) {
+        if (navInput === 0 && Math.abs(y) > DEADZONE && time > state.navCooldown) {
           navInput = y < 0 ? -1 : 1;
-          navCooldown = time + 250; // 250ms debounce
+          state.navCooldown = time + 250; // 250ms debounce
         }
 
         if (navInput !== 0) {
           setHoveredIdx(prev => {
-            if (showResult) return 100;
+            if (showResultRef.current) return 100;
             if (navInput < 0) return Math.max(0, prev - 1);
             return Math.min(scenario.choices.length - 1, prev + 1);
           });
         }
         
-        lastDpad = { up: !!dUp, down: !!dDown };
+        state.lastDpad = { up: !!dUp, down: !!dDown };
 
         // --- Selection (A Button) ---
-        if (btnA && !lastBtn) {
-          if (!showResult) {
-            handleChoice(hoveredIdx);
-          } else if (hoveredIdx === 100) {
-            onClose();
+        if (btnA && !state.lastBtn) {
+          if (!showResultRef.current) {
+            // We use a functional setter or a ref for hoveredIdx if we didn't have it here.
+            // But hoveredIdx is needed to trigger handleChoice.
+            // Actually, handleChoice should probably use the latest hoveredIdx.
+            setHoveredIdx(currentHovered => {
+              handleChoice(currentHovered);
+              return currentHovered;
+            });
+          } else {
+            // If result is shown, check the ref value of continue button focus
+            setHoveredIdx(currentHovered => {
+               if (currentHovered === 100) onClose();
+               return currentHovered;
+            });
           }
         }
-        lastBtn = btnA;
+        state.lastBtn = btnA;
       }
       rafId = requestAnimationFrame(poll);
     };
 
     rafId = requestAnimationFrame(poll);
     return () => cancelAnimationFrame(rafId);
-  }, [showResult, hoveredIdx, scenario.choices.length, onClose]);
+  }, [scenario.choices.length, onClose]); // Removed dependencies that reset the polling state
 
   return (
     <div className="dialogue-overlay" onClick={(e) => e.stopPropagation()}>
