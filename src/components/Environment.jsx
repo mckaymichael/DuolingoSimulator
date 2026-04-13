@@ -1,11 +1,11 @@
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
-import { useGLTF, Grid } from "@react-three/drei";
+import { useGLTF, Grid, Environment as EnvironmentMap } from "@react-three/drei";
 import InteractableProp from "./InteractableProp";
 
 /* ─── Constants ──────────────────────────────────────────── */
 const MODEL_SCALE = 4.0;
 const ACCENT_COLOR = "#58cc02"; // Duolingo Green
-const GRID_COLOR = "#223018";
+const GRID_COLOR = "#334433";
 
 /**
  * Environment — The Final High-Fidelity Route
@@ -15,14 +15,17 @@ export default function Environment({ onInteract, dialogueOpen }) {
 
   return (
     <group>
+      {/* ── ENVIRONMENT LIGHTING ────────────────────────────────── */}
+      <EnvironmentMap preset="city" intensity={0.6} />
+      
       {/* ── STYLIZED BACKGROUND ────────────────────────────────── */}
-      <color attach="background" args={["#0a1208"]} />
+      <color attach="background" args={["#111811"]} />
 
       {/* ── GRID FLOOR ────────────────────────────────────────── */}
       <RigidBody type="fixed" colliders={false} position={[0, -0.05, 0]}>
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[1000, 1000]} />
-          <meshStandardMaterial color="#0a1208" />
+          <meshStandardMaterial color="#111811" />
         </mesh>
         <CuboidCollider args={[500, 0.1, 500]} position={[0, -0.1, 0]} />
       </RigidBody>
@@ -47,10 +50,10 @@ export default function Environment({ onInteract, dialogueOpen }) {
       </RigidBody>
 
       {/* ── CINEMATIC LIGHTING ────────────────────────────────── */}
-      <pointLight position={[0, 20, 0]} intensity={25} color={ACCENT_COLOR} distance={100} decay={2} />
-      <pointLight position={[40, 15, -40]} intensity={15} color="#ffffff" distance={80} decay={2} />
-      <pointLight position={[-40, 15, 40]} intensity={15} color="#ffffff" distance={80} decay={2} />
-      <ambientLight intensity={0.2} />
+      <pointLight position={[0, 25, 0]} intensity={80} color={ACCENT_COLOR} distance={150} decay={1.5} />
+      <pointLight position={[60, 20, -60]} intensity={60} color="#ffffff" distance={150} decay={1.5} />
+      <pointLight position={[-60, 20, 60]} intensity={60} color="#ffffff" distance={150} decay={1.5} />
+      <ambientLight intensity={0.5} />
 
       {/* ══════════════════════════════════════════════════════
           INTERACTIVE NPC STATIONS

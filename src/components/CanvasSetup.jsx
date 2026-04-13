@@ -17,22 +17,22 @@ export default function CanvasSetup({ onInteract, dialogueOpen }) {
     <Canvas
       shadows
       camera={{ fov: 65, near: 0.1, far: 300, position: [0, 8, 14] }}
-      style={{ width: "100vw", height: "100vh", background: "#050804" }}
+      style={{ width: "100vw", height: "100vh", background: "#111811" }}
     >
-      {/* ── Lighting (Muted for the glowing wireframe aesthetic) ── */}
-      <ambientLight intensity={0.2} color="#ccffcc" />
+      {/* ── Lighting ── */}
+      <ambientLight intensity={0.6} color="#ffffff" />
       
       {/* Subtle top light to give player depth */}
       <spotLight 
         position={[0, 40, 0]} 
-        intensity={1} 
+        intensity={2} 
         angle={0.6} 
         penumbra={1} 
         color="#ffffff" 
       />
 
-      {/* Dark tech fog */}
-      <fog attach="fog" args={["#050804", 40, 150]} />
+      {/* Lighter fog */}
+      <fog attach="fog" args={["#111811", 60, 200]} />
 
       {/* ── Physics + Scene ───────────────────────────── */}
       <Physics gravity={[0, -20, 0]}>
