@@ -10,7 +10,7 @@ const ACCENT_COLOR = "#58cc02"; // Duolingo Green
  * Environment — The Final High-Fidelity Route
  */
 export default function Environment({ onInteract, dialogueOpen }) {
-  const { scene } = useGLTF("/duolingo-done.glb?v=1.1");
+  const { scene } = useGLTF("/duolingo-latest-v2.glb");
 
   return (
     <group>
@@ -144,4 +144,4 @@ export default function Environment({ onInteract, dialogueOpen }) {
   );
 }
 
-useGLTF.preload("/duolingo-done.glb?v=1.1");
+useGLTF.preload("/duolingo-latest-v2.glb");
