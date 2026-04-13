@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "LinguaPlaza — 3D Language Adventure",
+  title: "Duolingo Adventures",
   description:
-    "An interactive 3D language-learning experience. Navigate the Town Plaza and learn Spanish through environmental context.",
+    "An interactive 3D language-learning experience. Navigate the world and learn languages through environmental context.",
 };
 
 export default function RootLayout({ children }) {

@@ -24,7 +24,7 @@ export default function Page() {
     <>
       {/* HUD */}
       <div className="hud">
-        <div className="hud-title">LinguaPlaza</div>
+        <div className="hud-title">Duolingo Adventures</div>
         <div className="hud-controls">WASD · Move &nbsp;|&nbsp; E / Gamepad A · Interact</div>
       </div>
 
