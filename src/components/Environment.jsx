@@ -1,7 +1,5 @@
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useGLTF, Grid } from "@react-three/drei";
-import { useMemo } from "react";
-import * as THREE from "three";
 import InteractableProp from "./InteractableProp";
 
 /* ─── Constants ──────────────────────────────────────────── */
@@ -10,39 +8,17 @@ const ACCENT_COLOR = "#58cc02"; // Duolingo Green
 const GRID_COLOR = "#223018";
 
 /**
- * Environment — The Stylized "Sketch" Route
+ * Environment — The Final High-Fidelity Route
  */
 export default function Environment({ onInteract, dialogueOpen }) {
   const { scene } = useGLTF("/duolingo-done.glb");
-
-  // Stylize the model into a blueprint wireframe
-  const sketchScene = useMemo(() => {
-    const cloned = scene.clone();
-    cloned.traverse((child) => {
-      if (child.isMesh) {
-        child.material = new THREE.MeshStandardMaterial({
-          color: "#051005",
-          emissive: ACCENT_COLOR,
-          emissiveIntensity: 1.5,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.4,
-          metalness: 0.1,
-          roughness: 0.1
-        });
-        child.castShadow = false;
-        child.receiveShadow = false;
-      }
-    });
-    return cloned;
-  }, [scene]);
 
   return (
     <group>
       {/* ── STYLIZED BACKGROUND ────────────────────────────────── */}
       <color attach="background" args={["#0a1208"]} />
 
-      {/* ── GRID FLOOR (Blueprint Look) ───────────────────────── */}
+      {/* ── GRID FLOOR ────────────────────────────────────────── */}
       <RigidBody type="fixed" colliders={false} position={[0, -0.05, 0]}>
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[1000, 1000]} />
@@ -65,9 +41,9 @@ export default function Environment({ onInteract, dialogueOpen }) {
         fadeStrength={5}
       />
 
-      {/* ── GLOWING SKETCH ENVIRONMENT ────────────────────────── */}
+      {/* ── ENVIRONMENT MODEL ─────────────────────────────────── */}
       <RigidBody type="fixed" colliders="trimesh">
-        <primitive object={sketchScene} scale={MODEL_SCALE} position={[0, 0, 0]} />
+        <primitive object={scene} scale={MODEL_SCALE} position={[0, 0, 0]} />
       </RigidBody>
 
       {/* ── CINEMATIC LIGHTING ────────────────────────────────── */}
