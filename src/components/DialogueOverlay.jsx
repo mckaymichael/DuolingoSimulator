@@ -180,7 +180,7 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
             >
               {isCorrect
                 ? scenario.successMessage
-                : "Hmm, that doesn't seem right. Pay attention to the context clues around you."}
+                : scenario.errorMessage || "Hmm, that doesn't seem right. Pay attention to the context clues around you."}
             </div>
 
             <button
@@ -189,7 +189,9 @@ export default function DialogueOverlay({ scenarioId, onClose }) {
               onClick={onClose}
               onMouseEnter={() => setHoveredIdx(100)}
             >
-              {isCorrect ? "¡Continuar! →" : "Try again next time →"}
+              {isCorrect 
+                ? (scenario.continueText || "¡Continuar! →") 
+                : (scenario.retryText || "Try again next time →")}
             </button>
           </div>
         )}
