@@ -739,7 +739,7 @@ const ACCENT_COLOR = "#58cc02"; // Duolingo Green
 const GRID_COLOR = "#223018";
 function Environment({ onInteract, dialogueOpen }) {
     _s();
-    const { scene } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"])("/Duolingo.glb");
+    const { scene } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"])("/duolingo-done.glb");
     // Stylize the model into a blueprint wireframe
     const sketchScene = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "Environment.useMemo[sketchScene]": ()=>{
@@ -1439,7 +1439,7 @@ _s(Environment, "O4W/FpoUXPoWWW7NByZbFQRunv8=", false, function() {
     ];
 });
 _c = Environment;
-__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"].preload("/Duolingo.glb");
+__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"].preload("/duolingo-done.glb");
 var _c;
 __turbopack_context__.k.register(_c, "Environment");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

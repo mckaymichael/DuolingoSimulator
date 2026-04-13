@@ -13,7 +13,7 @@ const GRID_COLOR = "#223018";
  * Environment — The Stylized "Sketch" Route
  */
 export default function Environment({ onInteract, dialogueOpen }) {
-  const { scene } = useGLTF("/Duolingo.glb");
+  const { scene } = useGLTF("/duolingo-done.glb");
 
   // Stylize the model into a blueprint wireframe
   const sketchScene = useMemo(() => {
@@ -186,4 +186,4 @@ export default function Environment({ onInteract, dialogueOpen }) {
   );
 }
 
-useGLTF.preload("/Duolingo.glb");
+useGLTF.preload("/duolingo-done.glb");
