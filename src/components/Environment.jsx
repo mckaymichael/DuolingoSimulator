@@ -1,11 +1,10 @@
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
-import { useGLTF, Grid, Environment as EnvironmentMap } from "@react-three/drei";
+import { useGLTF, Environment as EnvironmentMap } from "@react-three/drei";
 import InteractableProp from "./InteractableProp";
 
 /* ─── Constants ──────────────────────────────────────────── */
 const MODEL_SCALE = 4.0;
 const ACCENT_COLOR = "#58cc02"; // Duolingo Green
-const GRID_COLOR = "#334433";
 
 /**
  * Environment — The Final High-Fidelity Route
@@ -21,28 +20,10 @@ export default function Environment({ onInteract, dialogueOpen }) {
       {/* ── STYLIZED BACKGROUND ────────────────────────────────── */}
       <color attach="background" args={["#111811"]} />
 
-      {/* ── GRID FLOOR ────────────────────────────────────────── */}
+      {/* ── COLLISION FLOOR (Invisible) ────────────────────────── */}
       <RigidBody type="fixed" colliders={false} position={[0, -0.05, 0]}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[1000, 1000]} />
-          <meshStandardMaterial color="#111811" />
-        </mesh>
         <CuboidCollider args={[500, 0.1, 500]} position={[0, -0.1, 0]} />
       </RigidBody>
-
-      <Grid
-        position={[0, 0.01, 0]}
-        args={[500, 500]}
-        sectionSize={10}
-        sectionThickness={1.5}
-        sectionColor={GRID_COLOR}
-        cellSize={2}
-        cellThickness={0.8}
-        cellColor={GRID_COLOR}
-        infiniteGrid
-        fadeDistance={400}
-        fadeStrength={5}
-      />
 
       {/* ── ENVIRONMENT MODEL ─────────────────────────────────── */}
       <RigidBody type="fixed" colliders="trimesh">
