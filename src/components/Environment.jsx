@@ -51,16 +51,18 @@ export default function Environment({ onInteract, dialogueOpen }) {
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        {/* NPC Body */}
-        <mesh position={[0, 0.75, 0]}>
-          <cylinderGeometry args={[0.26, 0.26, 1.4, 12]} />
-          <meshStandardMaterial color="#ff4a4a" roughness={0.5} />
-        </mesh>
-        {/* NPC Head */}
-        <mesh position={[0, 1.53, 0]}>
-          <sphereGeometry args={[0.26, 12, 12]} />
-          <meshStandardMaterial color="#ffdbac" />
-        </mesh>
+        <group visible={false}>
+          {/* NPC Body */}
+          <mesh position={[0, 0.75, 0]}>
+            <cylinderGeometry args={[0.26, 0.26, 1.4, 12]} />
+            <meshStandardMaterial color="#ff4a4a" roughness={0.5} />
+          </mesh>
+          {/* NPC Head */}
+          <mesh position={[0, 1.53, 0]}>
+            <sphereGeometry args={[0.26, 12, 12]} />
+            <meshStandardMaterial color="#ffdbac" />
+          </mesh>
+        </group>
       </InteractableProp>
 
       {/* Kiosk 2 — Bench/NPC scenario (North East) */}
@@ -73,14 +75,16 @@ export default function Environment({ onInteract, dialogueOpen }) {
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        <mesh position={[0, 1.0, 0.5]}>
-          <cylinderGeometry args={[0.22, 0.24, 1.1, 12]} />
-          <meshStandardMaterial color="#4a90ff" roughness={0.5} />
-        </mesh>
-        <mesh position={[0, 1.65, 0.5]}>
-          <sphereGeometry args={[0.22, 12, 12]} />
-          <meshStandardMaterial color="#eadaba" />
-        </mesh>
+        <group visible={false}>
+          <mesh position={[0, 1.0, 0.5]}>
+            <cylinderGeometry args={[0.22, 0.24, 1.1, 12]} />
+            <meshStandardMaterial color="#4a90ff" roughness={0.5} />
+          </mesh>
+          <mesh position={[0, 1.65, 0.5]}>
+            <sphereGeometry args={[0.22, 12, 12]} />
+            <meshStandardMaterial color="#eadaba" />
+          </mesh>
+        </group>
       </InteractableProp>
 
       {/* Kiosk 3 — Street scenario (South West - Moved) */}
@@ -93,20 +97,22 @@ export default function Environment({ onInteract, dialogueOpen }) {
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh>
-            <cylinderGeometry args={[0.38, 0.3, 0.9, 16]} />
-            <meshStandardMaterial color="#333" />
+        <group visible={false}>
+          <RigidBody type="fixed" colliders="cuboid">
+            <mesh>
+              <cylinderGeometry args={[0.38, 0.3, 0.9, 16]} />
+              <meshStandardMaterial color="#333" />
+            </mesh>
+          </RigidBody>
+          <mesh position={[0, 0.7, 0]}>
+            <cylinderGeometry args={[0.27, 0.27, 1.4, 12]} />
+            <meshStandardMaterial color="#ffd700" roughness={0.5} />
           </mesh>
-        </RigidBody>
-        <mesh position={[0, 0.7, 0]}>
-          <cylinderGeometry args={[0.27, 0.27, 1.4, 12]} />
-          <meshStandardMaterial color="#ffd700" roughness={0.5} />
-        </mesh>
-        <mesh position={[0, 1.47, 0]}>
-          <sphereGeometry args={[0.26, 12, 12]} />
-          <meshStandardMaterial color="#c8a87a" />
-        </mesh>
+          <mesh position={[0, 1.47, 0]}>
+            <sphereGeometry args={[0.26, 12, 12]} />
+            <meshStandardMaterial color="#c8a87a" />
+          </mesh>
+        </group>
       </InteractableProp>
 
       {/* Kiosk 4 — Tourist scenario (South East) */}
@@ -119,18 +125,20 @@ export default function Environment({ onInteract, dialogueOpen }) {
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        <mesh position={[0, 0, 0]}>
-          <cylinderGeometry args={[0.27, 0.27, 1.5, 12]} />
-          <meshStandardMaterial color="#ff6b6b" roughness={0.5} />
-        </mesh>
-        <mesh position={[0, 0.87, 0]}>
-          <sphereGeometry args={[0.27, 12, 12]} />
-          <meshStandardMaterial color="#ffd4aa" />
-        </mesh>
-        <mesh position={[0.22, 0.5, 0.25]} rotation={[0, -0.4, 0.3]}>
-          <boxGeometry args={[0.4, 0.28, 0.02]} />
-          <meshStandardMaterial color="#fff" />
-        </mesh>
+        <group visible={false}>
+          <mesh position={[0, 0, 0]}>
+            <cylinderGeometry args={[0.27, 0.27, 1.5, 12]} />
+            <meshStandardMaterial color="#ff6b6b" roughness={0.5} />
+          </mesh>
+          <mesh position={[0, 0.87, 0]}>
+            <sphereGeometry args={[0.27, 12, 12]} />
+            <meshStandardMaterial color="#ffd4aa" />
+          </mesh>
+          <mesh position={[0.22, 0.5, 0.25]} rotation={[0, -0.4, 0.3]}>
+            <boxGeometry args={[0.4, 0.28, 0.02]} />
+            <meshStandardMaterial color="#fff" />
+          </mesh>
+        </group>
       </InteractableProp>
     </group>
   );
