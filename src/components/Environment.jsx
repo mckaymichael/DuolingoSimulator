@@ -17,7 +17,7 @@ export default function Environment({ onInteract, dialogueOpen }) {
     <group>
       {/* ── ENVIRONMENT LIGHTING ────────────────────────────────── */}
       <EnvironmentMap preset="city" intensity={0.6} />
-      
+
       {/* ── STYLIZED BACKGROUND ────────────────────────────────── */}
       <color attach="background" args={["#111811"]} />
 
@@ -62,25 +62,21 @@ export default function Environment({ onInteract, dialogueOpen }) {
 
       {/* Kiosk 1 — Café scenario (North West) */}
       <InteractableProp
-        position={[-8, 0.55, -8]}
+        position={[-11, 0.55, -11.5]}
         promptHeight={2.2}
-        interactRadius={3.5}
+        interactRadius={4.5}
         scenarioId="cafe_counter"
         label="Language Kiosk 1"
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh castShadow receiveShadow={false} rotation={[0, Math.PI / 4, 0]}>
-            <boxGeometry args={[3.2, 1.0, 0.8]} />
-            <meshStandardMaterial color="#8b5a2b" roughness={0.6} />
-          </mesh>
-        </RigidBody>
-        <mesh position={[-0.9, 1.3, 0]}>
+        {/* NPC Body */}
+        <mesh position={[0, 0.75, 0]}>
           <cylinderGeometry args={[0.26, 0.26, 1.4, 12]} />
           <meshStandardMaterial color="#ff4a4a" roughness={0.5} />
         </mesh>
-        <mesh position={[-0.9, 2.08, 0]}>
+        {/* NPC Head */}
+        <mesh position={[0, 1.53, 0]}>
           <sphereGeometry args={[0.26, 12, 12]} />
           <meshStandardMaterial color="#ffdbac" />
         </mesh>
