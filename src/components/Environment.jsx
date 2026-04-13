@@ -64,9 +64,9 @@ export default function Environment({ onInteract, dialogueOpen }) {
       <InteractableProp
         position={[-11, 0.55, -11.5]}
         promptHeight={2.2}
-        interactRadius={4.5}
+        interactRadius={2.8}
         scenarioId="cafe_counter"
-        label="Language Kiosk 1"
+        label="Hablar Español"
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
@@ -84,20 +84,14 @@ export default function Environment({ onInteract, dialogueOpen }) {
 
       {/* Kiosk 2 — Bench/NPC scenario (North East) */}
       <InteractableProp
-        position={[8, 0.45, -8]}
+        position={[-13, 0.45, 8]}
         promptHeight={2.0}
-        interactRadius={3.0}
+        interactRadius={2.8}
         scenarioId="bench_sign"
-        label="Language Kiosk 2"
+        label="Parler Français"
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
-        <RigidBody type="fixed" colliders="cuboid">
-          <mesh position={[0, 0.35, 0]} rotation={[0, -Math.PI / 4, 0]}>
-            <boxGeometry args={[0.7, 0.12, 2.4]} />
-            <meshStandardMaterial color="#554433" />
-          </mesh>
-        </RigidBody>
         <mesh position={[0, 1.0, 0.5]}>
           <cylinderGeometry args={[0.22, 0.24, 1.1, 12]} />
           <meshStandardMaterial color="#4a90ff" roughness={0.5} />
@@ -110,11 +104,11 @@ export default function Environment({ onInteract, dialogueOpen }) {
 
       {/* Kiosk 3 — Street scenario (South West - Moved) */}
       <InteractableProp
-        position={[-9, 0.5, 18]}
+        position={[-1, 0.5, -9]}
         promptHeight={2.0}
         interactRadius={2.8}
         scenarioId="trash_can"
-        label="Language Kiosk 3"
+        label="日本語を話す"
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
@@ -136,11 +130,11 @@ export default function Environment({ onInteract, dialogueOpen }) {
 
       {/* Kiosk 4 — Tourist scenario (South East) */}
       <InteractableProp
-        position={[8, 0.75, 8]}
+        position={[18, 0.75, 2.3]}
         promptHeight={2.0}
         interactRadius={2.8}
         scenarioId="npc_tourist"
-        label="Language Kiosk 4"
+        label="Deutsch sprechen"
         dialogueOpen={dialogueOpen}
         onInteract={onInteract}
       >
